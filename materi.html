@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materi Pembelajaran - EduLearn TKA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="halamanpertama.css">
+    <script type="importmap">
+    {
+      "imports": {
+        "@supabase/supabase-js": "https://esm.sh/@supabase/supabase-js@2"
+      }
+    }
+    </script>
+    <style>
+        :root {
+            --primary: #4F46E5;
+            --primary-dark: #3730a3;
+            --primary-light: rgba(79, 70, 229, 0.1);
+            --secondary: #7C3AED;
+            --secondary-dark: #6d28d9;
+            --accent: #F59E0B;
+            --accent-dark: #d97706;
+            --success: #10b981;
+            --success-dark: #059669;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --text-muted: #9ca3af;
+            --bg-light: #f8fafc;
+            --bg-white: #ffffff;
+            --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --bg-card: #ffffff;
+            --border-color: #e5e7eb;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+        }
+
+        body {
+            background: var(--bg-light);
+            background-image:
+                radial-gradient(circle at 25% 25%, rgba(79, 70, 229, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(124, 58, 237, 0.05) 0%, transparent 50%);
+            color: var(--text-dark);
+            line-height: 1.6;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .materials-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .materials-header {
+            background: var(--bg-gradient);
+            border-radius: var(--radius-xl);
+            padding: 4rem 2rem;
+            margin-bottom: 3rem;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .materials-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="80" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="60" cy="40" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .materials-header h1 {
+            color: white;
+            margin-bottom: 1rem;
+            font-size: 2.5rem;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+
+        .materials-header h1 i {
+            color: var(--accent);
+            margin-right: 0.5rem;
+        }
+
+        .materials-header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2rem;
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .materials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .material-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .material-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .material-image {
+            width: 100%;
+            min-height: 200px;
+            max-height: 300px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            overflow: hidden;
+        }
+
+        .material-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .material-content {
+            padding: 1.5rem;
+        }
+
+        .material-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .material-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        .material-type {
+            background: #e5e7eb;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .material-description {
+            color: #4b5563;
+            margin-bottom: 1rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            line-height: 1.5;
+        }
+
+        .material-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        .material-stats i {
+            margin-right: 0.25rem;
+        }
+
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            min-width: 200px;
+        }
+
+        .filter-group label {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: #374151;
+        }
+
+        .filter-group select {
+            padding: 0.5rem;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 0.875rem;
+        }
+
+        .material-detail {
+            display: none;
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .material-detail.active {
+            display: block;
+        }
+
+        .detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+        }
+
+        .detail-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+        }
+
+        .detail-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        .detail-content {
+            line-height: 1.7;
+            color: #374151;
+        }
+
+        .detail-content h2,
+        .detail-content h3,
+        .detail-content h4 {
+            color: #1f2937;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .detail-content ul,
+        .detail-content ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .detail-content p {
+            margin-bottom: 1rem;
+        }
+
+        .back-btn {
+            background: #6b7280;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-bottom: 2rem;
+        }
+
+        .back-btn:hover {
+            background: #4b5563;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: #6b7280;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #6b7280;
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Header Styles */
+        .dashboard-header {
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .main-nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+            position: relative;
+        }
+
+        .user-profile:hover {
+            background-color: var(--bg-light);
+        }
+
+        .profile-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .profile-name {
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .profile-dropdown-icon {
+            color: var(--text-light);
+            font-size: 0.75rem;
+        }
+
+        .profile-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            display: flex;
+            flex-direction: column;
+            width: 240px;
+            background: #ffffff;
+            border-radius: 16px;
+            border: 1px solid rgba(0,0,0,0.04);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            padding: 8px;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .user-profile:hover .profile-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            margin-bottom: 2px;
+            text-decoration: none;
+            color: #4a5568;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .dropdown-item:hover {
+            background-color: #f7fafc;
+            color: #3182ce;
+            transform: translateX(3px);
+        }
+
+        .dropdown-item.logout:hover {
+            background-color: #fff5f5;
+            color: #e53e3e;
+        }
+
+        .dropdown-icon {
+            margin-right: 14px;
+            font-size: 16px;
+            width: 20px;
+            text-align: center;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        .dropdown-item:hover .dropdown-icon {
+            opacity: 1;
+        }
+
+        .profile-dropdown::before {
+            content: "";
+            position: absolute;
+            top: -6px;
+            right: 20px;
+            width: 12px;
+            height: 12px;
+            background: white;
+            transform: rotate(45deg);
+            border-left: 1px solid rgba(0,0,0,0.04);
+            border-top: 1px solid rgba(0,0,0,0.04);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .materials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filters {
+                flex-direction: column;
+            }
+
+            .filter-group {
+                min-width: auto;
+            }
+
+            .detail-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .dashboard-header {
+                padding: 0 1rem;
+                height: 60px;
+            }
+
+            .header-left {
+                gap: 1rem;
+            }
+
+            .main-nav {
+                display: none; /* Could be replaced with mobile menu */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="dashboard-header">
+        <div class="header-left">
+            <h1 class="logo">EduLearn</h1>
+            <nav class="main-nav">
+                <a href="halamanpertama.html" class="nav-link">Dashboard</a>
+                <a href="#" class="nav-link active">Materi</a>
+                <a href="ujian.html" class="nav-link">Simulasi</a>
+                <a href="#" class="nav-link">Progress</a>
+            </nav>
+        </div>
+        <div class="header-right">
+            <div class="user-profile">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBmaWxsPSIjNEY0NkU1Ii8+PHRleHQgeD0iMjAiIHk9IjI1IiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTYiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5VPC90ZXh0Pjwvc3ZnPg==" alt="Profile" class="profile-avatar">
+                <span class="profile-name">Nama Siswa</span>
+                <i class="fas fa-chevron-down profile-dropdown-icon"></i>
+                <div class="profile-dropdown">
+                    <a href="#" class="dropdown-item" onclick="showRecentActivities()">
+                        <i class="fas fa-clock dropdown-icon"></i>
+                        Aktivitas terakhir
+                    </a>
+                    <a href="#" class="dropdown-item" onclick="showProfileModal()">
+                        <i class="fas fa-user-cog dropdown-icon"></i>
+                        Atur profil
+                    </a>
+                    <a href="#" class="dropdown-item" onclick="logout()">
+                        <i class="fas fa-sign-out-alt dropdown-icon"></i>
+                        logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="materials-container">
+        <!-- Header -->
+        <div class="materials-header">
+            <h1><i class="fas fa-book-open"></i> Materi Pembelajaran</h1>
+            <p>Pelajari konsep matematika TKA dengan materi yang lengkap dan interaktif</p>
+        </div>
+
+        <!-- Filters -->
+        <div class="filters">
+            <div class="filter-group">
+                <label for="subjectFilter">Mata Pelajaran:</label>
+                <select id="subjectFilter" onchange="filterMaterials()">
+                    <option value="">Semua</option>
+                    <option value="Matematika">Matematika</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="chapterFilter">Bab:</label>
+                <select id="chapterFilter" onchange="filterMaterials()">
+                    <option value="">Semua Bab</option>
+                    <option value="Bilangan">Bilangan</option>
+                    <option value="Aljabar">Aljabar</option>
+                    <option value="Geometri dan Pengukuran">Geometri dan Pengukuran</option>
+                    <option value="Data dan Peluang">Data dan Peluang</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="typeFilter">Tipe Materi:</label>
+                <select id="typeFilter" onchange="filterMaterials()">
+                    <option value="">Semua Tipe</option>
+                    <option value="Artikel">Artikel</option>
+                    <option value="Video">Video</option>
+                    <option value="Infografis">Infografis</option>
+                    <option value="Latihan">Latihan</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="difficultyFilter">Tingkat Kesulitan:</label>
+                <select id="difficultyFilter" onchange="filterMaterials()">
+                    <option value="">Semua Tingkat</option>
+                    <option value="Mudah">Mudah</option>
+                    <option value="Sedang">Sedang</option>
+                    <option value="Sulit">Sulit</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Materials Grid -->
+        <div id="materialsGrid" class="materials-grid">
+            <div class="loading">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>Memuat materi...</p>
+            </div>
+        </div>
+
+        <!-- Material Detail View -->
+        <div id="materialDetail" class="material-detail">
+            <button class="back-btn" onclick="showMaterialsList()">
+                <i class="fas fa-arrow-left"></i> Kembali ke Daftar Materi
+            </button>
+
+            <div id="materialDetailContent">
+                <!-- Material detail content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Modal (same as halamanpertama.html) -->
+    <div id="profileModal" class="modal">
+        <div class="modal-content large-modal">
+            <div class="modal-header">
+                <h2><i class="fas fa-user-cog"></i> Pengaturan Profil</h2>
+                <span class="modal-close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="profile-modal-content">
+                    <!-- Profile Picture Section -->
+                    <div class="profile-section">
+                        <h3><i class="fas fa-camera"></i> Foto Profil</h3>
+                        <div class="profile-picture-section">
+                            <div class="current-profile-picture">
+                                <img id="currentProfileImage" src="" alt="Foto Profil" class="profile-large-avatar">
+                            </div>
+                            <div class="profile-picture-actions">
+                                <input type="file" id="avatarUpload" accept="image/*" style="display: none;">
+                                <button class="btn-secondary" onclick="document.getElementById('avatarUpload').click()">
+                                    <i class="fas fa-upload"></i> Ubah Foto
+                                </button>
+                                <small class="form-help">Maksimal 5MB, format JPG/PNG</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Personal Information -->
+                    <div class="profile-section">
+                        <h3><i class="fas fa-id-card"></i> Informasi Pribadi</h3>
+                        <form id="profileForm" class="profile-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="profileFullName">Nama Lengkap</label>
+                                    <input type="text" id="profileFullName" placeholder="Masukkan nama lengkap">
+                                </div>
+                                <div class="form-group">
+                                    <label for="profileEmail">Email</label>
+                                    <input type="email" id="profileEmail" placeholder="Masukkan email" readonly>
+                                    <small class="form-help">Email tidak dapat diubah</small>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="profilePhone">Nomor Telepon (Opsional)</label>
+                                    <input type="tel" id="profilePhone" placeholder="Masukkan nomor telepon">
+                                </div>
+                                <div class="form-group">
+                                    <label for="profileSchool">Asal Sekolah</label>
+                                    <input type="text" id="profileSchool" placeholder="Masukkan nama sekolah">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="profileBio">Bio Singkat (Opsional)</label>
+                                <textarea id="profileBio" rows="3" placeholder="Ceritakan sedikit tentang diri Anda..."></textarea>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn-primary">
+                                    <i class="fas fa-save"></i> Simpan Perubahan
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Account Settings -->
+                    <div class="profile-section">
+                        <h3><i class="fas fa-shield-alt"></i> Pengaturan Akun</h3>
+                        <div class="account-settings">
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>Notifikasi Email</h4>
+                                    <p>Terima pembaruan tentang materi baru dan hasil ujian</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="emailNotifications" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>Mode Gelap</h4>
+                                    <p>Aktifkan tampilan gelap untuk kenyamanan mata</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="darkMode">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Account Statistics -->
+                    <div class="profile-section">
+                        <h3><i class="fas fa-chart-bar"></i> Statistik Akun</h3>
+                        <div class="account-stats">
+                            <div class="stat-row">
+                                <span class="stat-label">Bergabung Sejak:</span>
+                                <span class="stat-value" id="joinDate">-</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">Total Waktu Belajar:</span>
+                                <span class="stat-value" id="totalStudyTimeStat">0 jam</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">Materi Diselesaikan:</span>
+                                <span class="stat-value" id="materialsCompletedStat">0</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">Ujian Dikerjakan:</span>
+                                <span class="stat-value" id="examsTakenStat">0</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">Rata-rata Nilai:</span>
+                                <span class="stat-value" id="averageScoreStat">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button onclick="hideProfileModal()" class="btn-secondary">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        // Import Supabase client
+        import { supabase } from './clientSupabase.js';
+
+        // Global variables
+        let allMaterials = [];
+        let currentMaterialId = null;
+
+        // Load materials and user profile on page load
+        document.addEventListener('DOMContentLoaded', async () => {
+            console.log('DOMContentLoaded fired, calling loadUserProfile...');
+
+            // Immediate test to see if element exists
+            const immediateTest = document.querySelector('.profile-name');
+            console.log('Immediate element check:', !!immediateTest, immediateTest?.textContent);
+
+            await loadUserProfile();
+            console.log('loadUserProfile completed, calling loadMaterials...');
+            await loadMaterials();
+
+            // Test if element can be updated
+            setTimeout(() => {
+                const testElement = document.querySelector('.profile-name');
+                console.log('Test update - element found:', !!testElement);
+                if (testElement) {
+                    console.log('Test update - current content:', testElement.textContent);
+                    if (testElement.textContent === 'Nama Siswa') {
+                        testElement.textContent = 'Test Update';
+                        console.log('Test update applied');
+                    }
+                }
+            }, 1000);
+        });
+
+        // Load materials from database
+        async function loadMaterials() {
+            try {
+
+                const { data: materials, error } = await supabase
+                    .from('materials')
+                    .select('*')
+                    .eq('is_published', true)
+                    .order('created_at', { ascending: false });
+
+                console.log('Query result:', { materials: materials?.length, error });
+
+                if (error) {
+                    console.error('Error loading materials:', error);
+                    showEmptyState('Gagal memuat materi. Silakan coba lagi.');
+                    return;
+                }
+
+                // Load sections for each material
+                for (const material of materials) {
+                    const { data: sections, error: sectionsError } = await supabase
+                        .from('material_sections')
+                        .select('*')
+                        .eq('material_id', material.id)
+                        .order('section_order');
+
+                    if (sectionsError) {
+                        console.warn('Error loading sections for material', material.id, sectionsError);
+                        material.sections = [];
+                    } else {
+                        material.sections = sections || [];
+                    }
+
+                    // Generate HTML content from sections for display
+                    material.content = renderSectionsToHTML(material.sections);
+                }
+
+                allMaterials = materials;
+                renderMaterials(materials);
+
+            } catch (error) {
+                console.error('Error in loadMaterials:', error);
+                showEmptyState('Terjadi kesalahan saat memuat materi.');
+            }
+        }
+
+        // Render sections to HTML for display
+        function renderSectionsToHTML(sections) {
+            if (!sections || sections.length === 0) {
+                return 'Klik untuk melihat materi lengkap.';
+            }
+
+            let html = '';
+
+            sections.forEach(section => {
+                switch (section.section_type) {
+                    case 'heading':
+                        html += `<h2>${section.title}</h2>`;
+                        if (section.content) {
+                            html += `<p>${section.content}</p>`;
+                        }
+                        break;
+                    case 'text':
+                        if (section.title) {
+                            html += `<h3>${section.title}</h3>`;
+                        }
+                        if (section.content) {
+                            html += `<p>${section.content}</p>`;
+                        }
+                        break;
+                    case 'list':
+                        if (section.title) {
+                            html += `<h3>${section.title}</h3>`;
+                        }
+                        if (section.content) {
+                            const items = section.content.split('\n').filter(item => item.trim());
+                            html += '<ul>';
+                            items.forEach(item => {
+                                html += `<li>${item.trim()}</li>`;
+                            });
+                            html += '</ul>';
+                        }
+                        break;
+                    case 'image':
+                        if (section.content) {
+                            const caption = section.title ? section.title : '';
+                            html += `<figure>
+                                <img src="${section.content}" alt="${caption}" style="max-width: 100%; height: auto;">
+                                ${caption ? `<figcaption>${caption}</figcaption>` : ''}
+                            </figure>`;
+                        }
+                        break;
+                }
+            });
+
+            return html;
+        }
+
+        // Render materials grid
+        function renderMaterials(materials) {
+            const grid = document.getElementById('materialsGrid');
+
+            if (materials.length === 0) {
+                showEmptyState('Belum ada materi yang tersedia.');
+                return;
+            }
+
+            grid.innerHTML = materials.map(material => createMaterialCard(material)).join('');
+        }
+
+        // Create material card HTML
+        function createMaterialCard(material) {
+            const imageHtml = material.image_url
+                ? `<img src="${material.image_url}" alt="${material.title}">`
+                : `<i class="fas fa-book"></i>`;
+
+            const shortContent = material.content
+                ? material.content.replace(/<[^>]*>/g, '').substring(0, 100) + '...'
+                : 'Klik untuk melihat materi lengkap.';
+
+            return `
+                <div class="material-card" onclick="showMaterialDetail('${material.id}')">
+                    <div class="material-image">
+                        ${imageHtml}
+                    </div>
+                    <div class="material-content">
+                        <h3 class="material-title">${material.title}</h3>
+                        <div class="material-meta">
+                            <span class="material-type">${material.material_type}</span>
+                            <span>${material.chapter || 'Umum'}</span>
+                        </div>
+                        <p class="material-description">${shortContent}</p>
+                        <div class="material-stats">
+                            <span><i class="fas fa-eye"></i> ${material.view_count}</span>
+                            <span><i class="fas fa-clock"></i> ${material.difficulty}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Show material detail
+        async function showMaterialDetail(materialId) {
+            try {
+
+                // Get material details
+                const { data: material, error } = await supabase
+                    .from('materials')
+                    .select('*')
+                    .eq('id', materialId)
+                    .single();
+
+                if (error) {
+                    console.error('Error loading material detail:', error);
+                    return;
+                }
+
+                // Load sections for this material
+                const { data: sections, error: sectionsError } = await supabase
+                    .from('material_sections')
+                    .select('*')
+                    .eq('material_id', materialId)
+                    .order('section_order');
+
+                if (sectionsError) {
+                    console.warn('Error loading sections for material detail:', sectionsError);
+                    material.sections = [];
+                } else {
+                    material.sections = sections || [];
+                }
+
+                // Update view count
+                await supabase.rpc('increment_material_views', { material_uuid: materialId });
+
+                // Render material detail
+                renderMaterialDetail(material);
+
+                // Hide grid, show detail
+                document.getElementById('materialsGrid').style.display = 'none';
+                document.querySelector('.filters').style.display = 'none';
+                document.getElementById('materialDetail').classList.add('active');
+
+                currentMaterialId = materialId;
+
+            } catch (error) {
+                console.error('Error in showMaterialDetail:', error);
+            }
+        }
+
+        // Render material detail
+        function renderMaterialDetail(material) {
+            const detailContent = document.getElementById('materialDetailContent');
+
+            const imageHtml = material.image_url
+                ? `<img src="${material.image_url}" alt="${material.title}" style="max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 2rem;">`
+                : '';
+
+            const attachmentHtml = material.attachment_url
+                ? `<div style="margin-top: 2rem; padding: 1rem; background: #f8fafc; border-radius: 8px;">
+                    <h4><i class="fas fa-paperclip"></i> Lampiran</h4>
+                    <a href="${material.attachment_url}" target="_blank" style="color: #4f46e5; text-decoration: none;">
+                        <i class="fas fa-download"></i> Unduh File
+                    </a>
+                   </div>`
+                : '';
+
+            // Render sections for detail view
+            const sectionsHtml = renderSectionsForDetail(material.sections);
+
+            detailContent.innerHTML = `
+                <div class="detail-header">
+                    <div>
+                        <h1 class="detail-title">${material.title}</h1>
+                        <div class="detail-meta">
+                            <span><i class="fas fa-tag"></i> ${material.material_type}</span>
+                            <span><i class="fas fa-book"></i> ${material.chapter || 'Umum'}</span>
+                            <span><i class="fas fa-chart-line"></i> ${material.difficulty}</span>
+                            <span><i class="fas fa-eye"></i> ${material.view_count + 1} dilihat</span>
+                        </div>
+                    </div>
+                </div>
+
+                ${imageHtml}
+
+                <div class="detail-content">
+                    ${sectionsHtml}
+                </div>
+
+                ${attachmentHtml}
+            `;
+        }
+
+        // Render sections for detail view
+        function renderSectionsForDetail(sections) {
+            if (!sections || sections.length === 0) {
+                return '<p>Konten materi belum tersedia.</p>';
+            }
+
+            let html = '';
+
+            sections.forEach(section => {
+                switch (section.section_type) {
+                    case 'heading':
+                        html += `<h2 style="color: #1f2937; margin-top: 2rem; margin-bottom: 1rem; font-weight: 600;">${section.title}</h2>`;
+                        if (section.content) {
+                            html += `<p style="margin-bottom: 1rem; line-height: 1.7;">${section.content}</p>`;
+                        }
+                        break;
+                    case 'text':
+                        if (section.title) {
+                            html += `<h3 style="color: #1f2937; margin-top: 1.5rem; margin-bottom: 0.5rem; font-weight: 600;">${section.title}</h3>`;
+                        }
+                        if (section.content) {
+                            html += `<p style="margin-bottom: 1rem; line-height: 1.7;">${section.content}</p>`;
+                        }
+                        break;
+                    case 'list':
+                        if (section.title) {
+                            html += `<h3 style="color: #1f2937; margin-top: 1.5rem; margin-bottom: 0.5rem; font-weight: 600;">${section.title}</h3>`;
+                        }
+                        if (section.content) {
+                            const items = section.content.split('\n').filter(item => item.trim());
+                            html += '<ul style="margin-left: 1.5rem; margin-bottom: 1rem;">';
+                            items.forEach(item => {
+                                html += `<li style="margin-bottom: 0.5rem;">${item.trim()}</li>`;
+                            });
+                            html += '</ul>';
+                        }
+                        break;
+                    case 'image':
+                        if (section.content) {
+                            const caption = section.title ? section.title : '';
+                            html += `<figure style="margin: 2rem 0; text-align: center;">
+                                <img src="${section.content}" alt="${caption}" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                                ${caption ? `<figcaption style="margin-top: 0.5rem; font-style: italic; color: #6b7280;">${caption}</figcaption>` : ''}
+                            </figure>`;
+                        }
+                        break;
+                }
+            });
+
+            return html;
+        }
+
+        // Show materials list
+        function showMaterialsList() {
+            document.getElementById('materialsGrid').style.display = 'grid';
+            document.querySelector('.filters').style.display = 'flex';
+            document.getElementById('materialDetail').classList.remove('active');
+            currentMaterialId = null;
+        }
+
+        // Filter materials
+        function filterMaterials() {
+            const subject = document.getElementById('subjectFilter').value;
+            const chapter = document.getElementById('chapterFilter').value;
+            const type = document.getElementById('typeFilter').value;
+            const difficulty = document.getElementById('difficultyFilter').value;
+
+            let filteredMaterials = allMaterials.filter(material => {
+                if (subject && material.subject !== subject) return false;
+                if (chapter && material.chapter !== chapter) return false;
+                if (type && material.material_type !== type) return false;
+                if (difficulty && material.difficulty !== difficulty) return false;
+                return true;
+            });
+
+            renderMaterials(filteredMaterials);
+        }
+
+        // Show empty state
+        function showEmptyState(message) {
+            const grid = document.getElementById('materialsGrid');
+            grid.innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-book-open"></i>
+                    <p>${message}</p>
+                </div>
+            `;
+        }
+
+        // Make functions global
+        window.showMaterialDetail = showMaterialDetail;
+        window.showMaterialsList = showMaterialsList;
+        window.filterMaterials = filterMaterials;
+
+        // Load user profile information (same as halamanpertama.html)
+        async function loadUserProfile() {
+            console.log('loadUserProfile function called');
+            try {
+                // Import auth functions
+                console.log('About to import auth.js...');
+                const { getCurrentUser } = await import('./auth.js');
+                console.log('auth.js imported successfully');
+
+                console.log('About to call getCurrentUser...');
+                const result = await getCurrentUser();
+                console.log('getCurrentUser result:', result);
+
+                if (!result.success || !result.user) {
+                    console.log('User not logged in, but continuing without redirect for debugging');
+                    // alert('Anda belum login. Mengarahkan ke halaman login...');
+                    // window.location.href = 'index.html';
+                    // return;
+                    // For debugging, continue and set a default name
+                    const profileName = document.querySelector('.profile-name');
+                    if (profileName) {
+                        profileName.textContent = 'Tamu';
+                        console.log('Set name to Tamu (guest)');
+                    }
+                    return;
+                }
+
+                // Get user profile data from Supabase - prioritize database data
+                let profileData = null;
+                try {
+                    // Try to get existing profile
+                    const { data, error } = await supabase
+                        .from('profiles')
+                        .select('nama_lengkap, email, avatar_url')
+                        .eq('id', result.user.id)
+                        .single();
+
+                    if (error && error.code === 'PGRST116') {
+                        // Profile doesn't exist, create it with available data
+                        console.log('Creating new user profile...');
+                        const userName = result.user.user_metadata?.full_name ||
+                                        result.user.user_metadata?.name ||
+                                        (result.user.email ? result.user.email.split('@')[0] : null) ||
+                                        'Siswa';
+
+                        const { data: newProfile, error: createError } = await supabase
+                            .from('profiles')
+                            .insert({
+                                id: result.user.id,
+                                nama_lengkap: userName,
+                                email: result.user.email
+                            })
+                            .select('nama_lengkap, email, avatar_url')
+                            .single();
+
+                        if (createError) {
+                            console.error('Error creating profile:', createError);
+                            // Continue with auth data only
+                        } else {
+                            profileData = newProfile;
+                            console.log('Profile created successfully:', profileData);
+                        }
+                    } else if (error) {
+                        console.error('Error fetching profile:', error);
+                        // Continue with auth data only
+                    } else {
+                        profileData = data;
+                        console.log('Profile loaded from database:', profileData);
+
+                        // If profile exists but nama_lengkap is empty, try to update it
+                        if (!profileData.nama_lengkap || profileData.nama_lengkap.trim() === '') {
+                            console.log('Profile exists but nama_lengkap is empty, trying to update...');
+                            const userName = result.user.user_metadata?.full_name ||
+                                            result.user.user_metadata?.name ||
+                                            (result.user.email ? result.user.email.split('@')[0] : null) ||
+                                            'Siswa';
+
+                            if (userName && userName !== 'Siswa') {
+                                const { error: updateError } = await supabase
+                                    .from('profiles')
+                                    .update({ nama_lengkap: userName })
+                                    .eq('id', result.user.id);
+
+                                if (!updateError) {
+                                    profileData.nama_lengkap = userName;
+                                    console.log('Profile nama_lengkap updated:', userName);
+                                } else {
+                                    console.error('Failed to update nama_lengkap:', updateError);
+                                }
+                            }
+                        }
+                    }
+                } catch (err) {
+                    console.error('Profile operation error:', err);
+                    // Continue with auth data only
+                }
+
+                // Determine display name - prioritize database profile data
+                let displayName = 'Siswa'; // Default fallback
+
+                if (profileData?.nama_lengkap && profileData.nama_lengkap.trim()) {
+                    displayName = profileData.nama_lengkap.trim();
+                    console.log('Using nama_lengkap from profile:', displayName);
+                } else if (result.user.user_metadata?.full_name && result.user.user_metadata.full_name.trim()) {
+                    displayName = result.user.user_metadata.full_name.trim();
+                    console.log('Using full_name from user_metadata:', displayName);
+                } else if (result.user.user_metadata?.name && result.user.user_metadata.name.trim()) {
+                    displayName = result.user.user_metadata.name.trim();
+                    console.log('Using name from user_metadata:', displayName);
+                } else if (result.user.email) {
+                    displayName = result.user.email.split('@')[0];
+                    console.log('Using email prefix:', displayName);
+                }
+
+                console.log('Final displayName:', displayName);
+
+                console.log('Calculated displayName:', displayName);
+                console.log('User data for display:', {
+                    displayName,
+                    profileData_nama_lengkap: profileData?.nama_lengkap,
+                    user_metadata_full_name: result.user.user_metadata?.full_name,
+                    user_metadata_name: result.user.user_metadata?.name,
+                    email_part: result.user.email ? result.user.email.split('@')[0] : null,
+                    authUser: result.user,
+                    profileData,
+                    userMetadata: result.user?.user_metadata,
+                    authEmail: result.user?.email
+                });
+
+                // Update header profile section
+                const profileName = document.querySelector('.profile-name');
+                console.log('Looking for .profile-name element:', profileName);
+                if (profileName) {
+                    profileName.textContent = displayName;
+                    console.log('Updated header profile name to:', displayName);
+                    console.log('Element content after update:', profileName.textContent);
+                } else {
+                    console.error('Header profile name element not found');
+                    console.log('All elements with class profile-name:', document.querySelectorAll('.profile-name'));
+                }
+
+                // Update header profile avatar
+                const profileAvatar = document.querySelector('.profile-avatar');
+                if (profileAvatar) {
+                    if (profileData?.avatar_url) {
+                        profileAvatar.src = profileData.avatar_url;
+                    } else {
+                        const firstLetter = displayName.charAt(0).toUpperCase();
+                        profileAvatar.src = `data:image/svg+xml;base64,${btoa(`<svg width="40" height="40" xmlns="http://www.w3.org/2000/svg"><rect width="40" height="40" fill="#4F46E5"/><text x="20" y="25" font-family="Arial" font-size="16" fill="white" text-anchor="middle">${firstLetter}</text></svg>`)}`;
+                    }
+                    profileAvatar.alt = `Avatar ${displayName}`;
+                    console.log('Updated header profile avatar');
+                } else {
+                    console.error('Header profile avatar element not found');
+                }
+
+                console.log('User info displayed successfully:', {
+                    user: result.user,
+                    profile: profileData,
+                    displayName
+                });
+
+            } catch (error) {
+                console.error('Error loading user info:', error);
+                // Don't redirect immediately, try to show a default name
+                console.log('Error occurred, trying to set default name...');
+                const profileName = document.querySelector('.profile-name');
+                if (profileName && profileName.textContent === 'Nama Siswa') {
+                    profileName.textContent = 'Siswa';
+                    console.log('Set default name to Siswa');
+                }
+                // alert('Terjadi kesalahan saat memuat data pengguna.');
+                // window.location.href = 'index.html';
+            }
+        }
+
+        // Navbar functions (same as halamanpertama.html)
+        function showRecentActivities() {
+            alert('Fitur Aktivitas Terakhir sedang dalam pengembangan.');
+        }
+
+        // Show profile modal
+        function showProfileModal() {
+            const modal = document.getElementById('profileModal');
+            if (modal) {
+                modal.classList.add('show');
+                loadProfileData();
+            }
+        }
+
+        // Hide profile modal
+        function hideProfileModal() {
+            const modal = document.getElementById('profileModal');
+            if (modal) {
+                modal.classList.remove('show');
+            }
+        }
+
+        // Logout function for global access
+        async function performLogout() {
+            if (confirm('Apakah Anda ingin logout?')) {
+                try {
+                    // Import logout function
+                    const { logout } = await import('./auth.js');
+                    await logout();
+                    alert('Logout berhasil!');
+                    window.location.href = 'index.html';
+                } catch (error) {
+                    console.error('Logout error:', error);
+                    alert('Logout gagal: ' + error.message);
+                }
+            }
+        }
+
+        // Load profile data
+        async function loadProfileData() {
+            try {
+                // Import auth functions
+                const { getCurrentUser } = await import('./auth.js');
+
+                const result = await getCurrentUser();
+                if (!result.success || !result.user) {
+                    alert('Anda harus login terlebih dahulu!');
+                    return;
+                }
+
+                const userId = result.user.id;
+                console.log('Loading profile for user:', userId);
+
+                // Load profile data
+                const { data: profile, error } = await supabase
+                    .from('profiles')
+                    .select('id, nama_lengkap, email, phone, school, bio, avatar_url, created_at, updated_at')
+                    .eq('id', userId)
+                    .single();
+
+                if (error && error.code !== 'PGRST116') {
+                    console.error('Error loading profile:', error);
+                    alert('Gagal memuat data profil: ' + error.message);
+                    return;
+                }
+
+                console.log('Profile data loaded:', profile);
+                currentProfileData = profile || {};
+
+                // Populate form fields
+                populateProfileForm(result.user, currentProfileData);
+
+                // Load account statistics
+                await loadAccountStatistics(userId);
+
+                // Load settings
+                loadUserSettings();
+
+            } catch (error) {
+                console.error('Error in loadProfileData:', error);
+                alert('Terjadi kesalahan saat memuat data profil.');
+            }
+        }
+
+        // Populate profile form
+        function populateProfileForm(user, profile) {
+            // Basic info
+            document.getElementById('profileFullName').value = profile.nama_lengkap || user.user_metadata?.full_name || user.user_metadata?.name || '';
+            document.getElementById('profileEmail').value = profile.email || user.email || '';
+
+            // Additional info
+            document.getElementById('profilePhone').value = profile.phone || '';
+            document.getElementById('profileSchool').value = profile.school || '';
+            document.getElementById('profileBio').value = profile.bio || '';
+
+            // Profile image
+            const avatarUrl = profile.avatar_url || user.user_metadata?.avatar_url;
+            const profileImage = document.getElementById('currentProfileImage');
+            if (avatarUrl) {
+                profileImage.src = avatarUrl;
+            } else {
+                // Generate avatar from name
+                const displayName = profile.nama_lengkap || user.user_metadata?.full_name || user.email?.split('@')[0] || 'U';
+                const firstLetter = displayName.charAt(0).toUpperCase();
+                profileImage.src = `data:image/svg+xml;base64,${btoa(`<svg width="120" height="120" xmlns="http://www.w3.org/2000/svg"><rect width="120" height="120" fill="#4F46E5"/><text x="60" y="75" font-family="Arial" font-size="48" fill="white" text-anchor="middle">${firstLetter}</text></svg>`)}`;
+            }
+        }
+
+        // Load account statistics
+        async function loadAccountStatistics(userId) {
+            try {
+                // Get user creation date
+                const { data: authUser } = await supabase.auth.getUser();
+                if (authUser.user) {
+                    const joinDate = new Date(authUser.user.created_at).toLocaleDateString('id-ID');
+                    document.getElementById('joinDate').textContent = joinDate;
+                }
+
+                // Load analytics data
+                const { data: analytics, error: analyticsError } = await supabase
+                    .from('student_analytics')
+                    .select('*')
+                    .eq('user_id', userId);
+
+                if (!analyticsError && analytics) {
+                    const totalMaterials = analytics.length;
+                    const totalTime = analytics.reduce((sum, a) => sum + (a.average_time_seconds || 0), 0) / 3600;
+                    const avgScore = analytics.length > 0
+                        ? Math.round(analytics.reduce((sum, a) => sum + (a.mastery_level || 0), 0) / analytics.length * 100)
+                        : 0;
+
+                    document.getElementById('totalStudyTimeStat').textContent = `${Math.round(totalTime)} jam`;
+                    document.getElementById('materialsCompletedStat').textContent = totalMaterials;
+                    document.getElementById('averageScoreStat').textContent = `${avgScore}%`;
+                }
+
+                // Load exam attempts
+                const { data: exams, error: examsError } = await supabase
+                    .from('exam_sessions')
+                    .select('id')
+                    .eq('user_id', userId);
+
+                if (!examsError && exams) {
+                    document.getElementById('examsTakenStat').textContent = exams.length;
+                }
+
+            } catch (error) {
+                console.error('Error loading account statistics:', error);
+            }
+        }
+
+        // Load user settings
+        function loadUserSettings() {
+            // Load settings from localStorage
+            const emailNotifications = localStorage.getItem('emailNotifications') !== 'false'; // Default true
+            const darkMode = localStorage.getItem('darkMode') === 'true'; // Default false
+
+            document.getElementById('emailNotifications').checked = emailNotifications;
+            document.getElementById('darkMode').checked = darkMode;
+        }
+
+        // Global variables for profile modal
+        let currentProfileData = null;
+
+        // Event listeners for profile modal
+        document.addEventListener('DOMContentLoaded', () => {
+            // Modal close functionality
+            const modal = document.getElementById('profileModal');
+            if (modal) {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal || e.target.classList.contains('modal-close')) {
+                        hideProfileModal();
+                    }
+                });
+
+                // Close on Escape key
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && modal.classList.contains('show')) {
+                        hideProfileModal();
+                    }
+                });
+            }
+        });
+
+        // Export functions for global access (same as halamanpertama.html)
+        window.showProfileModal = showProfileModal;
+        window.hideProfileModal = hideProfileModal;
+        window.logout = performLogout;
+        window.showRecentActivities = showRecentActivities;
+    </script>
+</body>
+</html>
